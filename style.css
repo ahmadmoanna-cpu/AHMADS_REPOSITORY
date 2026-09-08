@@ -107,3 +107,54 @@ footer {
         width: 92%;
     }
 }
+/* Brands */
+
+.brands {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.brand {
+    background: white;
+    padding: 35px 20px;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    color: #222;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+}
+
+.brand:hover {
+    transform: translateY(-5px);
+}
+
+/* Back button */
+
+.back-button {
+    display: inline-block;
+    padding: 12px 22px;
+    background: #222;
+    color: white;
+    text-decoration: none;
+    border-radius: 7px;
+    margin-top: 20px;
+}
+
+.back-button:hover {
+    opacity: 0.8;
+}
+
+/* Mobile brands */
+
+@media (max-width: 700px) {
+
+    .brands {
+        grid-template-columns: 1fr;
+    }
+
+}
