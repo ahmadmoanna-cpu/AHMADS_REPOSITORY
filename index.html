@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,32 +21,8 @@
 
         <h2>Catégories</h2>
 
-        <div class="categories">
-
-            <a href="categories/clarifiant.html" class="category">
-    Clarifiant
-</a>
-
-            <a href="#" class="category">
-                Bébé
-            </a>
-
-            <a href="#" class="category">
-                Capillaire
-            </a>
-
-            <a href="#" class="category">
-                Détergent
-            </a>
-
-            <a href="#" class="category">
-                Parfum
-            </a>
-
-            <a href="#" class="category">
-                Hygiène et Bien-être
-            </a>
-
+        <div class="categories" id="categories">
+            <p>Chargement des catégories...</p>
         </div>
 
         <section class="welcome">
@@ -65,5 +42,60 @@
         <p>© 2026 - Nos Produits</p>
     </footer>
 
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Connexion à Supabase -->
+    <script src="supabase.js"></script>
+
+    <script>
+        async function loadCategories() {
+
+            const categoriesContainer =
+                document.getElementById("categories");
+
+            const { data, error } = await supabaseClient
+                .from("categories")
+                .select("*")
+                .eq("active", true)
+                .order("sort_order", { ascending: true });
+
+            if (error) {
+                console.error("Erreur Supabase :", error);
+
+                categoriesContainer.innerHTML =
+                    "<p>Impossible de charger les catégories.</p>";
+
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                categoriesContainer.innerHTML =
+                    "<p>Aucune catégorie disponible pour le moment.</p>";
+
+                return;
+            }
+
+            categoriesContainer.innerHTML = "";
+
+            data.forEach(category => {
+
+                const link = document.createElement("a");
+
+                link.className = "category";
+
+                link.href =
+                    "categories/category.html?id=" + category.id;
+
+                link.textContent = category.name;
+
+                categoriesContainer.appendChild(link);
+            });
+        }
+
+        loadCategories();
+    </script>
+
 </body>
+
 </html>
